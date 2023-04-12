@@ -1,15 +1,11 @@
-<!-- _coverpage.md -->
+# Kooboo文档 `1.0`
+## 马上开始
 
 
-# docsify <small>3.5</small>
+[**docsify中文文档**](https://docsify.js.org/#/zh-cn/)
 
-> 一个神奇的文档网站生成器。
+[**Kooboo模板语法**](/Kooboo模板语法/kooboo指令)
 
-- 简单、轻便 (压缩后 ~21kB)
-- 无需生成 html 文件
-- 众多主题
+[**Kooboo配置**](/kooboo配置/媒体库)
 
-
-
-[GitHub](https://github.com/docsifyjs/docsify/)
-[Get Started](#docsify)
+[**KScript**](KScript/)
