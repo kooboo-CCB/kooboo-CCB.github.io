@@ -58,6 +58,8 @@ function LazyLoading(el, src, defaultSrc) {
 
 ?> 此工具还可以衍生多种功能函数，例如完成需求： `当元素进入可视范围内时，为元素的XXX进行赋值`
 
+
+
 ## 元素进入可视范围时，添加指定 class
 
 ```html
@@ -98,7 +100,7 @@ function addVisibleClassOnScroll(el, className) {
 }
 ```
 
-> 这个函数可以搭配 `tailiwnd` 或者其它一些 `动画CSS库` (大多依靠 class 实现) 来实现 `dom` 进入可视范围之后 执行动画的需求
+> 这个函数可以搭配 `tailiwnd` 或者其它一些 `CSS动画库` (大多依靠 class 实现) 来实现 `dom` 进入可视范围之后 执行动画的需求
 
 ## Vue-Router kooboo-lite 版
 
