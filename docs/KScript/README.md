@@ -1,164 +1,305 @@
-## 属性列表
+# 属性列表
 
+## 前端常用
 
-### 1-20
-#### 1. DataContext
+### 1. DataContext
+> kview 引擎的 dataContext(数据上下文)。您可以将值显式设置到 datacontext 中，或者只将值声明为 JS 全局变量，它将可以从 kview 引擎访问。
+``` javascript
+// 组件1
+  <script engine="kscript">
+    k.dataContext.set("name","CCB")
+    k.dataContext.set("info",{
+        age:18,
+        type:'any'
+    })
+</script>
+// 组件2
+<script engine="kscript">
+    let name = k.dataContext.get("name")
+    let info = k.dataContext.get("info")
+</script>
+// 获取之后可以在khtml中使用
+<div k-content="info.age"></div>
+```
 
->  kview引擎的dataContext，kooboo的html渲染引擎。您可以将值显式设置到datacontext中，或者只将值声明为JS全局变量，它将可以从kview引擎访问。
+### 2. Response
 
-#### 2. Response
+> 用于将数据设置为 HTTP resposne 流的 HTTP 响应对象
+k.Response对象有如下属性
+1. binary
+2. execute
+3. json
+4. redirect
+5. renderView
+6. setHeader
+7. statusCode
+8. unanthorized
+9. write 
 
-> 用于将数据设置为HTTP resposne流的HTTP响应对象
+ !> 由于缺少文档,以下是`chargpt`对9个方法`可能`的作用说明
 
-#### 3. Request
+> - binary：将响应的内容设置为二进制数据，可以用于下载文件或显示图像等需要以二进制格式传输的内容。
+> - execute：执行响应的内容，通常用于执行动态生成的 JavaScript 代码或者其他类型的动态内容。
+> - json：将响应的内容设置为 JSON 格式的数据，通常用于 API 响应或其他需要返回结构化数据的场景。
+> - redirect：将响应重定向到另一个 URL，通常用于实现页面跳转或者路由功能。
+> - renderView：渲染一个 HTML 视图，并将其作为响应返回给客户端，通常用于显示页面内容。
+> - setHeader：设置响应的 HTTP 头信息，例如设置响应类型、缓存策略、跨域策略等。
+> - statusCode：设置响应的 HTTP 状态码，通常用于表示请求的状态和结果，例如 200 表示成功、404 表示未找到等。
+> - unanthorized：设置响应的 HTTP 状态码为 401（未授权），通常用于表示用户需要进行身份验证或者没有访问权限。
+> - write：向响应中写入文本内容，通常用于输出 HTML、文本、XML 等格式的内容。
 
-> 访问http请求数据、查询字符串、表单或标头。Cookie可从k.Cookie获取。
-> var值=k.request.queryname；
-> var值=k.request.queryString.queryname；
-> var值=k.request.form.queryname；
+### 3. Request
 
-#### 4. Net
-#### 5. InlineEditor
-#### 6. Module
-#### 7. ClientJS
+> 访问 http 请求数据、查询字符串、表单或标头。
+> var 值=k.request.queryname；
+> var 值=k.request.queryString.queryname；
+> var 值=k.request.form.queryname；
 
-> 将对象发送到浏览器JavaScript
+**返回示例**
 
-#### 8. Community
+```javascript
+{
+    "queryString": {},
+    "form": {},
+    "files": [],
+    "body": null,
+    "postData": null,
+    "method": "GET",
+    "clientIp": "118.166.10.26",
+    "headers": {
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "Host": "dev_2.ninjible-dev-sg.sitepapa.com",
+        "UserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+        ":method": "GET",
+        "AcceptEncoding": "gzip, deflate, br",
+        "AcceptLanguage": "zh-CN,zh;q=0.9",
+        "CacheControl": "max-age=0",
+        "Cookie": "_site_culture=nl,_gid=GA1.2.17487441.1683628492,_ga=GA1.1.1385787511.1683623736,_site_id_=598a2176-dd5c-383d-70fe-bba727acc0d0,_ga_FC5DZ0P2MF=GS1.1.1683701176.5.1.1683703323.0.0.0,_site_version_=871",
+        "Referer": "https://ninjible-dev-sg.sitepapa.com/",
+        "UpgradeInsecureRequests": "1",
+        "secchua": "\"Chromium\";v=\"112\", \"Google Chrome\";v=\"112\", \"Not:A-Brand\";v=\"99\"",
+        "secchuamobile": "?0",
+        "secchuaplatform": "\"Windows\"",
+        "secfetchsite": "same-site",
+        "secfetchmode": "navigate",
+        "secfetchuser": "?1",
+        "secfetchdest": "document"
+    },
+    "url": "/test"
+}
+```
 
-> 与公众共享项目
+### 4. ClientJS
 
-#### 9. Session
+> 将对象发送到浏览器 JavaScript , 可以向客户端发送信息
+Ninjible项目中,在Report-page页面,在服务端请求解析结果并渲染页面,减少客户端白屏时间。
+在解析完后，将信息通过 `k.clientJS.setVariable` 方法传递信息给客户端发送邮件使用。
+``` javascript
+  k.clientJS.setVariable('lang', JSON.stringify(lang))
+  k.clientJS.setVariable('pageState', JSON.stringify(pageState))
+  k.clientJS.setVariable('requestdata', requestdata)
+```
+!> 传递给客户端的变量会挂载在全局对象`window`上
+
+### 5. Session
 
 > 用于小型交互式信息的临时存储器。会话不持续
 > k.session.set（“key”，obj）；
 > var back=k.session.get（“key”）；
 > k.session.newkey=“值”；
 
-#### 10. Dom
+#### 7. Info
 
-> 文档对象模型
+> 当前请求信息 返回示例如下
+>
+> 可以获取常用信息有：Culture，BaseUrl
 
-#### 11. WebSocket
+```Javascript
+{
+    "Culture": "nl",
+    "Name": "dev_2",
+    "Setting": {},
+    "User": {
+        "UserName": null,
+        "FirstName": null,
+        "LastName": null,
+        "Language": null
+    },
+    "BaseUrl": "https://dev_2.ninjible-dev-sg.sitepapa.com/",
+    "Version": 673,
+    "Domains": [
+        "dev_2.ninjible-dev-sg.sitepapa.com"
+    ],
+    "Host": "dev_2.ninjible-dev-sg.sitepapa.com"
+}
+```
 
-> WebSocket服务
+#### 8. Cookie
 
-#### 12. sms
+> 获取或设置 cookie 值 , 返回值示例如下
 
-> 发送短信通知
+``` json
+k.cookie
+{
+    "Keys": [
+        "_ga",
+        "_ga_2GB21SEBRP",
+        "_site_id_",
+        "_site_culture",
+        "_ga_FC5DZ0P2MF",
+        "_site_version_"
+    ],
+    "Values": [
+        "GA1.1.1370139942.1682245682",
+        "GS1.1.1682245592.11.1.1682245706.0.0.0",
+        "598a2176-dd5c-383d-70fe-bba727acc0d0",
+        "nl",
+        "GS1.1.1683597548.6.1.1683598186.0.0.0",
+        "677"
+    ]
+}
+```
 
-#### 13. ViewData
+!> k.cookie._site_culture 可以直接获取变量
 
-> 共享当前上下文存储
 
-#### 14. Info
 
-> 访问当前请求信息
+## 后端常用
 
-#### 15. User
-#### 16. Account
-#### 17. Logger
-#### 18. Organization
-#### 19. Version
-
-> 将版本nr附加到图像url以进行缓存。仅当系统设置为映像版本缓存时有效
-
-#### 20. Template
-
-### 21-40
-#### 21. Cache
-#### 22. SiteDb
-#### 23. Site
-
-> 具有版本控制的Kooboo网站数据库
-
-#### 24. Url
-#### 25. File
+### 1.File
 
 > 提供对站点文件夹下的文本或二进制文件的读写访问
 
-#### 26. Cookie
+### 2. Database
 
-> 获取或设置cookie值
+### 3. Sqlite
 
-#### 27. config
-#### 28. Settings
-#### 29. event
-#### 30. diagnosis
-#### 31. DB
-#### 32. Task
-#### 33. KeyValue
+### 4. Mysql
 
-> 数据库键值存储
+### 5. SqlServer
 
-#### 34. Database
-#### 35. Sqlite
-#### 36. Mysql
-#### 37. SqlServer
-#### 38. Sql
+### 6. Sql
 
 > 动态选择的数据库
 > 例子：
 > 站点设置默认数据库=>mysql
 > k.sql==k.mysql
 
-#### 39. Mongo
-#### 40. Api
 
-### 41-60
-#### 41. OpenApi
-#### 42. Market
-#### 43. Content
-#### 44. Extension
-#### 45. ex
-#### 46. String
-#### 47. Text
-#### 48. Date
 
-> Date对象,有format方法
 
-#### 49. Utils
-#### 50. mail
-#### 51. map
-#### 52. Compression
-#### 53. Xml
-#### 54. Security
 
-> 单向和双向加密
+# 未解释 或 不常用
 
-#### 55. WebUtility
-#### 56. Office
+- #### Net
 
-> office操作
-> 例如:excel
+- #### ViewData
 
-## 
+- #### Dom
 
-## 服务器执行的script
+- #### WebSocket
+
+- #### sms
+
+- #### KeyValue
+
+- #### User
+
+- #### Account
+
+- #### Module
+
+- #### Community
+
+- #### Logger
+
+- #### Organization
+
+- #### Version
+
+- #### Template
+
+- #### SiteDb
+
+- #### Site
+
+- #### Url
+
+- #### config
+
+- #### Settings
+
+- #### event
+
+- #### diagnosis
+
+- #### DB
+
+- #### Cache
+
+- #### OpenApi
+
+- #### Market
+
+- #### Content
+
+- #### Extension
+
+- #### ex
+
+- #### String
+
+- #### Text
+
+- #### Date
+
+- #### Utils
+
+- #### mail
+
+- #### map
+
+- #### Compression
+
+- #### Xml
+
+- #### Security
+
+- #### WebUtility
+
+- #### Office
+
+- #### Mongo
+
+
+
+## 案例
+
+### 服务器执行的 script
 
 ```html
 <script engine="kscript">
-    // 服务器执行的node，可以访问到k对象
-    let list = k.content.list.all()
+  // 服务器执行的node，可以访问到k对象
+  let list = k.content.list.all();
 
-    // console.log()  console is defined 无此对象
+  // console.log()  console is defined 无此对象
 </script>
 ```
 
-
 - k.import( ) 引入文件
-- k.sqllit 访问sqllit数据库
-  - 
+- k.sqllit 访问 sqllit 数据库
+
+  -
 
 - k.response 设置返回体的信息
-  - statusCode(code)  设置返回体的状态码
-  - json() 参数为符合json格式的对象，会转为json格式 
+  - statusCode(code) 设置返回体的状态码
+  - json() 参数为符合 json 格式的对象，会转为 json 格式
 - k.mail 创建邮件对象？
-  - createMessage 类似form对象，可以设置邮件的属性
-    - from 
+  - createMessage 类似 form 对象，可以设置邮件的属性
+    - from
     - to
     - subject
     - htmlBody
     - addAttachment
     - ......
-  - smtp.send( )  发送邮件
+  - smtp.send( ) 发送邮件
