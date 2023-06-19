@@ -4,3 +4,4 @@
 - :memo: 目录
   - [kooboo 案例](example/)
   - [JavaScript 工具库](example/JavaScript_utils)
+  - [amsterdamai 项目](example/amsterdamai)

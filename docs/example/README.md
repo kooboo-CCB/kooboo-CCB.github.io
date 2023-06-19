@@ -133,6 +133,16 @@ k.response.json({ success: 'is send Success' }) //发挥成功信息
 
 
 
+
+
+## 在kooboo中使用TailwindCSS3.0的探索
+
+> kooboo的大多数网站都使用tailwindCSS进行开发，在tailwind的3.0版本，tailwind实现了引入js的方式实现对页面的解析，动态生成样式插入到页面中。
+
+
+
+
+
 ## 账号登录
 
 实现步骤....(可以放案例链接)
